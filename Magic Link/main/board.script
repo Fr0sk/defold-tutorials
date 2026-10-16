@@ -1,0 +1,80 @@
+go.property("timer", 0)     -- Use to time events
+local blocksize = 80        -- Distance between block centers
+local edge = 40             -- Left and right edge.
+local bottom_edge = 50      -- Bottom edge.
+local boardwidth = 7        -- Number of columns
+local boardheight = 9       -- Number of rows
+local centeroff = vmath.vector3(8, -8, 0) -- Center offset for connector gfx since there's shadow below in the block img
+local dropamount = 3        -- The number of blocks dropped on a "drop"
+local colors = { hash("orange"), hash("pink"), hash("blue"), hash("yellow"), hash("green") }
+
+--
+-- filter(function, table)
+-- e.g: filter(is_even, {1, 2, 3, 4]) -> {2, 4}
+local function filter(func, tbl)
+	local new = {}
+	for i, v in pairs(tbl) do
+		if func(v) then
+			new[i] = v
+		end
+	end
+	return new
+end
+
+--
+-- Build a list of blocks in 1 dimension for easy filtering
+--
+local function build_blocklist(self)
+	self.blocks = {}
+	for x, l in pairs(self.board) do
+		for y, b in pairs(self.board[x]) do
+			table.insert(self.blocks, { id = b.id, color = b.color, x = b.x, y = b.y })
+		end
+	end
+end
+
+--
+-- INIT
+--
+function init(self)
+	self.board = {}
+	self.blocks = {}
+	self.chain = {}
+	self.connectors = {}
+	self.num_magic = 3
+	self.drops = 1
+	self.magic_blocks = {}
+	self.dragging = false
+	msg.post(".", "acquire_input_focus")
+	msg.post("#", "start_level")
+end
+
+local function build_board(self)
+	math.randomseed(os.time())
+	local pos = vmath.vector3()
+	local c
+	local x = 0
+	local y = 0
+	
+	for x = 0,boardwidth-1 do
+		pos.x = edge + blocksize / 2 + blocksize * x
+		self.board[x] = {}
+		for y = 0,boardheight-1 do
+			pos.y = bottom_edge + blocksize / 2 + blocksize * y
+			
+			pos.z = x * -0.1 + y * 0.01
+			c = colors[math.random(#colors)]
+			local id = factory.create("#blockfactory", pos, null, { color = c})
+			self.board[x][y] = { id = id, color = c, x = x, y = y}
+		end
+	end
+
+	build_blocklist(self)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("start_level") then
+		build_board(self)
+	end
+	
+end

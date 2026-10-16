@@ -1,0 +1,11 @@
+go.property("color", hash("none"))
+
+function init(self)
+	go.set_scale_xy(0.18)
+
+	if self.color ~= nil then
+		sprite.play_flipbook("#sprite", self.color)
+	else
+		msg.post("#sprite", "disable")
+	end
+end
