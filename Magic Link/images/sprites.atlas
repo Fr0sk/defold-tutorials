@@ -1,0 +1,43 @@
+images {
+  image: "/images/bg_820x1200.png"
+}
+images {
+  image: "/images/bg_start_820x1200.png"
+}
+images {
+  image: "/images/blue.png"
+}
+images {
+  image: "/images/green.png"
+}
+images {
+  image: "/images/magic-sphere_layer1.png"
+}
+images {
+  image: "/images/magic-sphere_layer2.png"
+}
+images {
+  image: "/images/magic-sphere_layer3.png"
+}
+images {
+  image: "/images/magic-sphere_layer4.png"
+}
+images {
+  image: "/images/marked.png"
+}
+images {
+  image: "/images/orange.png"
+}
+images {
+  image: "/images/pink.png"
+}
+images {
+  image: "/images/white_dot.png"
+}
+images {
+  image: "/images/white_dot2.png"
+}
+images {
+  image: "/images/yellow.png"
+}
+extrude_borders: 2

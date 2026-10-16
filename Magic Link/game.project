@@ -1,12 +1,12 @@
 [bootstrap]
-main_collection = /main/main.collectionc
+main_collection = /main/board.collectionc
 
 [script]
 shared_state = 1
 
 [display]
-width = 960
-height = 640
+width = 640
+height = 960
 high_dpi = 1
 
 [android]
@@ -21,4 +21,7 @@ scale_mode = stretch
 
 [project]
 title = Magic Link
+
+[sprite]
+max_count = 512
 
